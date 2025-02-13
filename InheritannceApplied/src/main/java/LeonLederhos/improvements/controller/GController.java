@@ -1,8 +1,9 @@
 package LeonLederhos.improvements.controller;
 
 
-import com.noCountry.artAuction.model.entity.BasicEntity;
-import com.noCountry.artAuction.service.imp.GService;
+
+import LeonLederhos.improvements.model.entity.BasicEntity;
+import LeonLederhos.improvements.service.imp.GService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,10 +20,10 @@ import java.util.List;
 
 @Getter
 @Validated
-public abstract class GController<T extends BasicEntity, ID, Rq, Rs> {
-    private final GService<T, ID, Rq, Rs> service;
+public abstract class GController<T extends BasicEntity, ID, Rq, Rs, CollRs> {
+    private final GService<T, ID, Rq, Rs, CollRs> service;
 
-    public GController(GService<T, ID, Rq, Rs> service) {
+    public GController(GService<T, ID, Rq, Rs, CollRs> service) {
         this.service = service;
     }
 
@@ -131,7 +132,6 @@ public abstract class GController<T extends BasicEntity, ID, Rq, Rs> {
 
 
     @DeleteMapping("/{id}")
-    @Hidden
     public ResponseEntity<?> deleteEntityById(@NonNull @PathVariable ID id) {
         service.deleteById(id);
         return new ResponseEntity<>("entity deleted successfully", HttpStatus.OK);

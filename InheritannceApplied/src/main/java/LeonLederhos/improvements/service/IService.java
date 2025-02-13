@@ -1,8 +1,12 @@
 package LeonLederhos.improvements.service;
 
+import LeonLederhos.improvements.model.dto.request.GFilterRequest;
+import LeonLederhos.improvements.model.entity.BasicEntity;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
-public interface IService<T, ID, Rq, Rs> {
+public interface IService<T extends BasicEntity,ID,Rq,FilRq extends GFilterRequest,Rs,CollRs> {
 
     void create(Rq entity);
 
@@ -10,13 +14,15 @@ public interface IService<T, ID, Rq, Rs> {
 
     Rs findResponseDtoById(ID id);
 
-    List<T> findALl();
+    Page<T> findALl(int page, int size);
 
-    List<T> findAllNotDeleted();
+    Page<T> findAllNotDeleted(int page, int size);
 
-    List<Rs> findAllResponse();
+    Page<CollRs> findAllResponse(int page, int size);
 
-    List<Rs> findAllResponseNotDeleted();
+    Page<CollRs> findAllResponseNotDeleted(int page, int size);
+
+    Page<CollRs> findAllByFilter(FilRq filterRequest, int page, int size);
 
     void update(Rq dto, ID id);
 

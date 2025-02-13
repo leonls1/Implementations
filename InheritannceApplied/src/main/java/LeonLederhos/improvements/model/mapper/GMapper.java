@@ -1,13 +1,16 @@
 package LeonLederhos.improvements.model.mapper;
 
-import com.noCountry.artAuction.model.entity.BasicEntity;
+
+import LeonLederhos.improvements.model.entity.BasicEntity;
 import org.mapstruct.MappingTarget;
 
 
-public interface GMapper<T extends BasicEntity, Rq, Rs> {
-    T toEntity(Rq dto);
+public interface GMapper<E extends BasicEntity, Rq, Rs, CollRes> {
+    E toEntity(Rq dto);
 
-    Rs toDto(T entity);
+    Rs toDto(E entity);
 
-    void updateExistingEntity(Rq dto, @MappingTarget T entity);
+    CollRes toCollectionResponse(E dto);
+
+    void updateExistingEntity(Rq dto, @MappingTarget E entity);
 }
